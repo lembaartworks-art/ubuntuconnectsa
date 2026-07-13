@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Link } from "@tanstack/react-router";
-import { Heart, HandHeart, Building2, Users, Package, HeartHandshake, Home } from "lucide-react";
+import { HandHeart, Users, Package, HeartHandshake, Home } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
