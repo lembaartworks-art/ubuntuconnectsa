@@ -336,7 +336,7 @@ function TestimonialsTab() {
     onError: (e: Error) => toast.error(e.message),
   });
   const update = useMutation({
-    mutationFn: async ({ id, patch }: { id: string; patch: Record<string, unknown> }) => {
+    mutationFn: async ({ id, patch }: { id: string; patch: { published?: boolean; hidden?: boolean } }) => {
       const { error } = await supabase.from("testimonials").update(patch).eq("id", id);
       if (error) throw error;
     },
