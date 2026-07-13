@@ -8,6 +8,8 @@ import { Label } from "@/components/ui/label";
 import { Shield } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/use-auth";
+import { useServerFn } from "@tanstack/react-start";
+import { seedInitialAdmin } from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/admin/login")({
   head: () => ({
@@ -23,6 +25,18 @@ function AdminLogin() {
   const navigate = useNavigate();
   const { user, roles, refreshRoles } = useAuth();
   const [loading, setLoading] = useState(false);
+  const seedFn = useServerFn(seedInitialAdmin);
+  const [seeding, setSeeding] = useState(false);
+
+  async function onSeed() {
+    setSeeding(true);
+    try {
+      const res = await seedFn();
+      if (res.ok) toast.success(res.reason === "already_seeded" ? "Admin already exists." : `Admin created: ${res.email}`);
+      else toast.error(res.reason ?? "Seed failed.");
+    } catch (e) { toast.error((e as Error).message); }
+    setSeeding(false);
+  }
 
   useEffect(() => {
     if (user && roles.includes("admin")) navigate({ to: "/admin" });
@@ -83,6 +97,12 @@ function AdminLogin() {
               {loading ? "Signing in..." : "Sign in"}
             </Button>
           </form>
+          <div className="mt-6 border-t pt-4">
+            <p className="mb-2 text-xs text-muted-foreground">First-time setup: create the initial admin using the pre-configured email + password.</p>
+            <Button variant="outline" size="sm" className="w-full" onClick={onSeed} disabled={seeding}>
+              {seeding ? "Setting up..." : "Set up initial admin"}
+            </Button>
+          </div>
         </div>
       </section>
     </PageShell>
