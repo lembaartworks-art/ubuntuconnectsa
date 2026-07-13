@@ -9,14 +9,21 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RequestSupportRouteImport } from './routes/request-support'
 import { Route as RegisterNgoRouteImport } from './routes/register-ngo'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as DonateRouteImport } from './routes/donate'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminLoginRouteImport } from './routes/admin.login'
 
+const RequestSupportRoute = RequestSupportRouteImport.update({
+  id: '/request-support',
+  path: '/request-support',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterNgoRoute = RegisterNgoRouteImport.update({
   id: '/register-ngo',
   path: '/register-ngo',
@@ -25,6 +32,11 @@ const RegisterNgoRoute = RegisterNgoRouteImport.update({
 const HowItWorksRoute = HowItWorksRouteImport.update({
   id: '/how-it-works',
   path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DonateRoute = DonateRouteImport.update({
+  id: '/donate',
+  path: '/donate',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -58,8 +70,10 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/how-it-works': typeof HowItWorksRoute
   '/register-ngo': typeof RegisterNgoRoute
+  '/request-support': typeof RequestSupportRoute
   '/admin/login': typeof AdminLoginRoute
 }
 export interface FileRoutesByTo {
@@ -67,8 +81,10 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/how-it-works': typeof HowItWorksRoute
   '/register-ngo': typeof RegisterNgoRoute
+  '/request-support': typeof RequestSupportRoute
   '/admin/login': typeof AdminLoginRoute
 }
 export interface FileRoutesById {
@@ -77,8 +93,10 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/donate': typeof DonateRoute
   '/how-it-works': typeof HowItWorksRoute
   '/register-ngo': typeof RegisterNgoRoute
+  '/request-support': typeof RequestSupportRoute
   '/admin/login': typeof AdminLoginRoute
 }
 export interface FileRouteTypes {
@@ -88,8 +106,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/donate'
     | '/how-it-works'
     | '/register-ngo'
+    | '/request-support'
     | '/admin/login'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -97,8 +117,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/donate'
     | '/how-it-works'
     | '/register-ngo'
+    | '/request-support'
     | '/admin/login'
   id:
     | '__root__'
@@ -106,8 +128,10 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/contact'
+    | '/donate'
     | '/how-it-works'
     | '/register-ngo'
+    | '/request-support'
     | '/admin/login'
   fileRoutesById: FileRoutesById
 }
@@ -116,13 +140,22 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
+  DonateRoute: typeof DonateRoute
   HowItWorksRoute: typeof HowItWorksRoute
   RegisterNgoRoute: typeof RegisterNgoRoute
+  RequestSupportRoute: typeof RequestSupportRoute
   AdminLoginRoute: typeof AdminLoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/request-support': {
+      id: '/request-support'
+      path: '/request-support'
+      fullPath: '/request-support'
+      preLoaderRoute: typeof RequestSupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register-ngo': {
       id: '/register-ngo'
       path: '/register-ngo'
@@ -135,6 +168,13 @@ declare module '@tanstack/react-router' {
       path: '/how-it-works'
       fullPath: '/how-it-works'
       preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/donate': {
+      id: '/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof DonateRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -180,8 +220,10 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
+  DonateRoute: DonateRoute,
   HowItWorksRoute: HowItWorksRoute,
   RegisterNgoRoute: RegisterNgoRoute,
+  RequestSupportRoute: RequestSupportRoute,
   AdminLoginRoute: AdminLoginRoute,
 }
 export const routeTree = rootRouteImport
