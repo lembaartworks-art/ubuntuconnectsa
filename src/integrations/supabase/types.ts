@@ -14,16 +14,381 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      admin_status: {
+        Row: {
+          created_at: string
+          is_active: boolean
+          is_primary: boolean
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          is_active?: boolean
+          is_primary?: boolean
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          is_active?: boolean
+          is_primary?: boolean
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      donations: {
+        Row: {
+          amount: number | null
+          created_at: string
+          description: string
+          donor_email: string
+          donor_id: string | null
+          donor_name: string
+          donor_phone: string | null
+          id: string
+          location: string
+          status: Database["public"]["Enums"]["donation_status"]
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          amount?: number | null
+          created_at?: string
+          description: string
+          donor_email: string
+          donor_id?: string | null
+          donor_name: string
+          donor_phone?: string | null
+          id?: string
+          location: string
+          status?: Database["public"]["Enums"]["donation_status"]
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number | null
+          created_at?: string
+          description?: string
+          donor_email?: string
+          donor_id?: string | null
+          donor_name?: string
+          donor_phone?: string | null
+          id?: string
+          location?: string
+          status?: Database["public"]["Enums"]["donation_status"]
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      matches: {
+        Row: {
+          created_at: string
+          donation_id: string | null
+          id: string
+          ngo_id: string | null
+          notes: string | null
+          request_id: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          donation_id?: string | null
+          id?: string
+          ngo_id?: string | null
+          notes?: string | null
+          request_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          donation_id?: string | null
+          id?: string
+          ngo_id?: string | null
+          notes?: string | null
+          request_id?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "matches_donation_id_fkey"
+            columns: ["donation_id"]
+            isOneToOne: false
+            referencedRelation: "donations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matches_ngo_id_fkey"
+            columns: ["ngo_id"]
+            isOneToOne: false
+            referencedRelation: "ngos"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matches_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "support_requests"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      messages: {
+        Row: {
+          body: string
+          created_at: string
+          from_email: string
+          from_name: string
+          from_user: string | null
+          id: string
+          read: boolean
+          subject: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          from_email: string
+          from_name: string
+          from_user?: string | null
+          id?: string
+          read?: boolean
+          subject: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          from_email?: string
+          from_name?: string
+          from_user?: string | null
+          id?: string
+          read?: boolean
+          subject?: string
+        }
+        Relationships: []
+      }
+      ngos: {
+        Row: {
+          address: string
+          city: string
+          contact_person: string
+          created_at: string
+          description: string
+          documents: Json
+          email: string
+          id: string
+          org_name: string
+          phone: string
+          province: string
+          reg_number: string | null
+          rejection_reason: string | null
+          status: Database["public"]["Enums"]["ngo_status"]
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          address: string
+          city: string
+          contact_person: string
+          created_at?: string
+          description: string
+          documents?: Json
+          email: string
+          id?: string
+          org_name: string
+          phone: string
+          province: string
+          reg_number?: string | null
+          rejection_reason?: string | null
+          status?: Database["public"]["Enums"]["ngo_status"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          address?: string
+          city?: string
+          contact_person?: string
+          created_at?: string
+          description?: string
+          documents?: Json
+          email?: string
+          id?: string
+          org_name?: string
+          phone?: string
+          province?: string
+          reg_number?: string | null
+          rejection_reason?: string | null
+          status?: Database["public"]["Enums"]["ngo_status"]
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      support_requests: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          id: string
+          location: string
+          requester_email: string
+          requester_id: string | null
+          requester_name: string
+          requester_phone: string | null
+          status: Database["public"]["Enums"]["request_status"]
+          title: string
+          updated_at: string
+          urgency: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description: string
+          id?: string
+          location: string
+          requester_email: string
+          requester_id?: string | null
+          requester_name: string
+          requester_phone?: string | null
+          status?: Database["public"]["Enums"]["request_status"]
+          title: string
+          updated_at?: string
+          urgency?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          location?: string
+          requester_email?: string
+          requester_id?: string | null
+          requester_name?: string
+          requester_phone?: string | null
+          status?: Database["public"]["Enums"]["request_status"]
+          title?: string
+          updated_at?: string
+          urgency?: string
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          author_name: string
+          author_role: string | null
+          created_at: string
+          hidden: boolean
+          id: string
+          image_url: string | null
+          published: boolean
+          quote: string
+          updated_at: string
+        }
+        Insert: {
+          author_name: string
+          author_role?: string | null
+          created_at?: string
+          hidden?: boolean
+          id?: string
+          image_url?: string | null
+          published?: boolean
+          quote: string
+          updated_at?: string
+        }
+        Update: {
+          author_name?: string
+          author_role?: string | null
+          created_at?: string
+          hidden?: boolean
+          id?: string
+          image_url?: string | null
+          published?: boolean
+          quote?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_active_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "ngo" | "donor" | "community" | "volunteer"
+      donation_status:
+        | "pending"
+        | "approved"
+        | "rejected"
+        | "matched"
+        | "completed"
+      ngo_status: "pending" | "approved" | "rejected"
+      request_status:
+        | "pending"
+        | "approved"
+        | "rejected"
+        | "matched"
+        | "completed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +515,23 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "ngo", "donor", "community", "volunteer"],
+      donation_status: [
+        "pending",
+        "approved",
+        "rejected",
+        "matched",
+        "completed",
+      ],
+      ngo_status: ["pending", "approved", "rejected"],
+      request_status: [
+        "pending",
+        "approved",
+        "rejected",
+        "matched",
+        "completed",
+      ],
+    },
   },
 } as const
