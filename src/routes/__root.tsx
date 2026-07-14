@@ -90,17 +90,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "Connecting compassionate people, NGOs, churches, businesses, schools and volunteers with families who need support across South Africa.",
+          "Ubuntu Connect SA connects compassionate people, verified NGOs, churches, businesses, schools and volunteers with individuals and families who need support across South Africa.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Ubuntu Connect SA — Connecting Hearts. Changing Lives." },
+      { name: "twitter:description", content: "Ubuntu Connect SA connects compassionate people, verified NGOs, churches, businesses, schools and volunteers with individuals and families who need support across South Africa." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/72e42ba2-1b6a-42d4-ae7a-75b3f2ffc4b4" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/72e42ba2-1b6a-42d4-ae7a-75b3f2ffc4b4" },
     ],
     links: [
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
